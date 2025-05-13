@@ -563,7 +563,7 @@
 00024;yusuf-599a04ca-23117RA68G-emerald-1741098971042; Yusuf
 00021:5346554766;4441824483318731950;3161fc21bfcf3ad0;İbrahim Kala-2
 
-00019;ibrahimkala-veux-POCO-2201116PG-veux-229f8e27-1712697541489;kalakardesler@gmail.com;İbrahim Kala
+00019;ibrahimkala-veux-POCO-2201116PG-veux-18e06b95-1712697541489;kalakardesler@gmail.com;İbrahim Kala
 
 00016;YWFlNDBlNGUyMDE1ZTA2NzRkNTYyMWQ5MjIxMDEzMTZHcnVieTMxMTY3NjAxODcwNjAwMDE3MjYzMDA5ODYyNjI=;Ayhan Çetin
 
