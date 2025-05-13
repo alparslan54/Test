@@ -569,7 +569,7 @@
 
 00010;hakan05332464747-e2s-samsung-SM-S926B-s5e9945-fd63fd28-1719038746006;hakan.sahiner@hotmail.com;Hakan Şahiner
 
-00009;sudegida-78c7f38a-V2028-2028-1738598922885;Caner 
+00009;sudegida-2028-vivo-V2028-bengal-e3b74fa0-1747155408394;selekahmetcan@gmail.com;Caner 
 
 00004;5354526557;4383617608001377500;f144e2fcf2b4d328;Nejdet abi
 00003;cagdasendustri-73076565-SM-A525F-a52q-1744567715464;Harun Bey
