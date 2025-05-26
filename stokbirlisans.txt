@@ -232,7 +232,7 @@
 00120;
 
 00119;4983598621565243400;8aafacf6d5d7e368;Selim Çeçen 2. lisans tablet
-00119;safirmetal-r8s-samsung-SM-G780F-exynos990-62dffb80-1648147872240;slmcecen@gmail.com;Selim Çeçen-1.lisans telefon
+00119;safirmetal-r8s-samsung-SM-G780F-exynos990-70797f81-1648147872240;slmcecen@gmail.com;Selim Çeçen-1.lisans telefon
 
 00118;
 00117;MzY5ZmNlNWMzZTJjZDk3ZGEwYzIyNDhmTTIwMDdKMjBDR3N1cnlhMzExNjg3MTU5NDUyMDAwMTYz+NTY5NTE3OTc4MA==+;Sait Adıbelli
