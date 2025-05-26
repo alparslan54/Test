@@ -227,7 +227,7 @@
 
 00124;OTkzYTM2NDFhYmQ2N2RiODhkZjUxYzJjUmVkbWkgTm90ZSA4IFByb2JlZ29uaWEzMDE2NTM0ODMw+ODAwMDAxNjg2MzgxMTA5ODAx+;Yasin Uğuz
 00123;inegolambalaj-a6bb568c-SM-A245F-a24-1745677925568;Yasin İnegöl 
-00122;NDFjNjZiNDljMDQ4ZmI3Y2JlNjMyMDE2U00tUzkyOEJlM3EzNDE3NDAxMDE0NzEwMDAxNzMyMDIw+MzgwMDA3+;Ümit Renk
+00122;renkfamlycompany-e3q-samsung-SM-S928B-pineapple-671b9181-1732020380007;renkumit2013@gmail.com;Ümit Renk
 00121;5382551325;Tahir Ünaldan devir oldu 0204 ali kemale,  lisans iptal oldu;Tahir Ünal
 00120;
 
