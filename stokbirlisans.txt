@@ -323,8 +323,10 @@
 
 00033;denizambalaj-emerald-Redmi-23117RA68G-emerald-498c2d16-1747293061808;denizkarakoc69@gmail.com;Deniz Karakoç
 00031;ODA2MzFkNTQ2NjAzNGY1MGQwODc0YmY0U00tVDI5MGd0b3dpZmkzMDE2ODkxNDI2NzEwMDAxNjM1+OTY4MDcwMTk5+;Mehmet Öztekin
-00030;;Hulusi Kalaycıoğlu -2. lisans
+
+00030;kalaycioglu-sweet-Redmi-M2101K6G-sweet-b2d7d097-1680199823941;hulusi.kalaycioglu@gmail.com;Hulusi Kalaycıoğlu -2. lisans
 00030;kalaycioglu-rodin-POCO-2412DPC0AG-rodin-a7d447f1-1747042462388;hulusi.kalaycioglu@gmail.com;Hulusi Kalaycıoğlu -1. lisans
+
 00029;NWNjMTkwYzMwYjRiZWU0MDE3YTU4ZDk1MjMwNTNSTjAyQWZpcmUzMzE3MDE4NzY5OTcwMDAxNzEw+NTgxODAyNTc3+; Muhammed-Bahattin
 
 00028;5315903058;4509351939710194000;baeb0419cfa37d65;Aras Sigaracı 29/10/2023
