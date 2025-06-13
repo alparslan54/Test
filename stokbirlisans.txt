@@ -323,7 +323,7 @@
 00038;5326368195;4705207546642247000;058a167b1c7de09b;Tahsin Şahin 
 00036;NzVkYWEyZGY5YTUxNGQwODI0ZDRmYWM1U1RLLUwyMUhXU1RLLUhGMjkxNTk1OTk5MTA3MDAwMTcz+OTM5MzgwNTE5MA==+;Yakup
 
-00035;celenktoptangida-obsidian-Redmi-24116RACCG-obsidian-d88bd07a-1748980912243;tahsincelenk10@gmail.com; Emrah 2
+00035;celenk-obsidian-Redmi-24116RACCG-obsidian-273ea54c-1748980912243; Emrah 2 Tahsin çelenk
 00034;celenktoptangidahirdavatkirtasiye-obsidian-Redmi-24116RACCG-obsidian-09136dcb-1748979427293;emrahcelenk12@gmail.com;Emrah Çelenk
 
 00033;denizambalaj-emerald-Redmi-23117RA68G-emerald-498c2d16-1747293061808;denizkarakoc69@gmail.com;Deniz Karakoç
