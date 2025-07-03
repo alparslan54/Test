@@ -1,0 +1,61 @@
+﻿GİZLİLİK VE GÜVENLİK POLİTİKASI
+
+StokOn olarak, kullanıcılarımızın gizliliğini ve kişisel verilerinin korunmasını en üst düzeyde önemsemekteyiz. 
+Bu politika, uygulamamızın veri toplama, kullanma ve koruma prensiplerini açıklamaktadır.
+
+1.  Veri Toplama ve Kullanımı
+Kişisel Veri Toplanması: StokOn uygulamasında isteğe bağlı oturum açma seçeneği bulunmaktadır. Oturum açmak, belirli fonksiyonlara erişimi kolaylaştırır ancak zorunlu değildir.”
+Oturum açıldığında aşağıdaki bilgiler toplanır. Bu bilgiler kullanıcı eşleştirme amacıyla harici bir sunucuda saklanır.
+Uygulama her açıldığında bilgiler eşleştirilir ve kullanıcı doğrulaması sağlanır. 
+Oturum açma tercih edilmezse bilgiler hiç üretilmez ve harici sunucuya aktarılmaz.
+
+Toplanan bilgiler: account.googleID, Build.Model, Build.Device, Build.Board, Firma bilgileri, Uygulama yüklenme tarihi.
+
+Toplanan bilgiler, kullanıcının aynı cihaz üzerinden uygulamaya erişip erişmediğini tespit etmek amacıyla eşleştirme algoritmasında kullanılmaktadır. Bu işlem, kullanıcı doğrulaması sağlamak ve kötüye kullanımı önlemek amacıyla yapılır. her seferinde gelen bilgilerin önceki ile aynı olması beklenir. eşleştirme dışında hiçbir yerde kullanılmaz. eşleşme olmazsa oturum açma tamamlanmaz ve reklam puanlı kullanım devam eder. Ücretlendirme detayı aşağıda belirtilmiştir.
+
+Oturum açma veya Oturum kapalı kalması durumu:
+Oturum açan kullanıcının ödüllü reklam izlemesi ve puan toplaması gerekmez, oturum açma tercih edilmediyse kullanıcı reklam puanı gerektiren fonksiyonlar için ödüllü reklam izlemesi ve puan toplaması gerekir. Bu fonksiyonlar değişebilir ve uygulama içerisinde kullanıcıya bildirilir.
+
+**Oturum açtıktan sonra vazgeçilmesi halinde, oturumun kapatıldığında, sunucularımızda saklanan kullanıcıya ait tüm kişisel veriler anında ve geri döndürülemez şekilde silinir.”
+
+2.  Verinin Paylaşılması, Pazarlama ve Diğer Kullanım Amaçları
+Oturum açılsın veya açılmasın her iki durumda da. 
+Uygulama içerisinde kaydedilmiş sizi veya işletmenizi tanımlayan veya doğrudan sizinle ilişkilendirilebilecek herhangi bir kişisel bilginin
+Üçüncü Kişilerle Paylaşım: Üçüncü kişilerle herhangi bir veri **paylaşılmaz**.
+Pazarlama ve İletişim: Uygulama aracılığıyla herhangi bir pazarlama faaliyeti yürütülmez, veri tabanı oluşturmaz, yeni ürünler hakkında bilgi veya promosyon teklifleri göndermez. Kişisel bilgiler pazarlama veya pazar araştırmaları için **kullanılmaz**.
+
+3.  Bilgilerin Otomatik Toplanması Hakkında
+Yukarıda belirtildiği üzere, oturum açılması durumunda bilgiler otomatik olarak toplanır ve her seferinde eşleştirme için kullanılır.
+Oturum açma tercih edilmezse bilgiler hiç üretilmez, toplanmaz, saklanmaz ve hiçbiryere aktarılmaz.
+Oturum açılsın veya açılmasın:
+Uygulamamız, sistemle ilgili sorunların tanımlanması ve hizmet kalitesinin artırılması amacıyla IP adresi gibi cihaz tanımlayıcılarını **kaydetmez ve kullanmaz**.
+Uygulamanın performansını artırmak ve olası hataları tespit etmek amacıyla, çökme raporları gibi anonim ve kişisel olmayan teknik verileri **kaydetmez ve kullanmaz**.
+    
+4.  İzinler:
+Uygulamamızın özellikleri için gereklidir ve tamamen sizin kontrolünüzde çalışmaktadır. İzinlerle elde edilen tüm bu veriler uygulama içerisinde saklanır tercihiniz doğrultusunda tarafınızca kullanılır. Asla paylaşmak, reklam pazarlama, promosyon, veritabanı oluşturma amacıyla kullanılmaz, uygulama dışına aktarılmaz ve paylaşılmaz. Siz kullanmadıkça izin verilen her özellik, yalnızca kullanıcının açıkça başlattığı işlemler sırasında ve sadece ilgili işlem için kullanılır. Kaydedilen Konum ve Adres bilgisi uygulama dışına kesinlikle aktarılmaz ve kaydedilmez.
+ * Kamera Erişim izni. Uygulama içerisinde resim çekip kaydedilmesi içindir.
+ * İnternet Erişimi izni. Bu izin internet üzerinden sizin belirlediğiniz resimleri indirmek ve kur bilgisini elde etmek için kullanılmaktadır.
+ * Bluetooth erişim izni. Bluetooth tanımlı cihazlar arasından yazıcının seçilebilmesi, ve bu yazıcıdan yazdırma için gereklidir.
+ * Lokasyon erişim izini. Konum ve adres bilgisi kaydettiğiniz müşteriye navigasyonla ulaşmak ve adresini otomatik girmeniz içindir. 
+
+    
+5.  Çocukların Gizliliği
+    * StokOn, 18 yaşın altındakilere yönelik değildir. Bilinçli olarak hiçbir yaş sınıfı için bilgi toplamayız.
+
+6.  Politika Değişiklikleri
+    * Bu gizlilik politikası zaman zaman güncellenebilir. Herhangi bir değişiklik durumunda, güncellenmiş politika bu sayfada yayımlanacaktır. Değişiklikler yayımlandığı anda geçerli olacaktır.
+
+7.  Bize Ulaşın
+    * Gizlilik politikamız hakkında herhangi bir sorunuz varsa, lütfen [intertek@outlook.com.tr] adresinden bizimle iletişime geçmekten çekinmeyin.
+
+8.  Ücretlendirme
+    * Oturum açma seçildiğinde ücretlendirme ve firma e-posta bilgisi ekrandan iletilir, talep edilecek ücret, koşulları ve diğer tüm yasal konular iletişim e-posta adresi üzerinden tamamlanır.
+    * Kullanıcı isterse iletişime geçerek bu adımı tamamlar. Kullanıcı eposta veya diğer iletişim bilgisi firmada olmadığından StokOn tarafından hiçbir şekilde iletişim kurulmaz.
+    * Uygulamada oturum açmış fakat ücretlendirme yapmamış kullanıcılar için gerekli bilgilendirme uygulama içerisinde yapılır.
+
+
+Son Güncelleme Tarihi: 03 Temmuz 2025
+
+
+
+
