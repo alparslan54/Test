@@ -329,7 +329,7 @@
 00041;karagida-8505F-Lenovo-Lenovo TB-8505F-akita_row_wifi-c55d5fa3-1747906041149;tirebolulu_iso@hotmail.com;İsmail Kara
 00040;NzBhOTM0MDAzNGUwMjhlYzYxZmY1Nzg0VEVDTk8gTEc3blRFQ05PLUxHN24zMTE3MTcwODQ4NTkw+MDAxNjkwNTYzMzc5NzAw+;Önder Uzun
 00038;5326368195;4705207546642247000;058a167b1c7de09b;Tahsin Şahin 
-00036;NzVkYWEyZGY5YTUxNGQwODI0ZDRmYWM1U1RLLUwyMUhXU1RLLUhGMjkxNTk1OTk5MTA3MDAwMTcz+OTM5MzgwNTE5MA==+;Yakup
+00036;kardelenet-HWSTK-HF-HUAWEI-STK-L21-STK-L21M-8648065b-1739393805190;Yakup
 
 00035;celenk-obsidian-Redmi-24116RACCG-obsidian-273ea54c-1748980912243; Emrah 2 Tahsin çelenk
 00034;celenktoptangidahirdavatkirtasiye-obsidian-Redmi-24116RACCG-obsidian-09136dcb-1748979427293;emrahcelenk12@gmail.com;Emrah Çelenk
