@@ -340,7 +340,7 @@
 00031;oztekinticaret-a03-samsung-SM-A035F-ums9230_25c10-e1aafe55-1753979438499;Mehmet Öztekin
 
 00030;kalaycioglu-sweet-Redmi-M2101K6G-sweet-b2d7d097-1680199823941;hulusi.kalaycioglu@gmail.com;Hulusi Kalaycıoğlu -2. lisans
-00030;kalaycioglu-rodin-POCO-2412DPC0AG-rodin-a7d447f1-1747042462388;hulusi.kalaycioglu@gmail.com;Hulusi Kalaycıoğlu -1. lisans
+00030;kalaycioglu-rodin-POCO-2412DPC0AG-rodin-b77cf8e2-1753907176083;Hulusi Kalaycıoğlu -1. lisans
 
 00029;yalcinlartoplutuketimaslts-fire-Redmi-23053RN02A-fire-9187ed0e-1710581802577; Muhammed-Bahattin
 
