@@ -190,7 +190,7 @@
 00175; Gürbüz karalar- 00094 sırasında 
 
 00174;ikragida-a25x-samsung-SM-A256E-s5e8825-c1321d7c-1748414159674;Suphi Yılmaz01-Faik Aydın dan devir
-00174;ikragida-a25x-samsung-SM-A256E-s5e8825-21eb04df-1748414159674;haciesatogullari@gmail.com;Suphi Yılmaz02
+00174;;Suphi Yılmaz02
 
 00173;NTQ2MDRhYmJiZjhhYTMzMTJiNTJjZThiU00tQTIxN0ZhMjFzMzExNzE1NjcyOTExMDAwMTY2OTM2+NDAyNzQxMw==+;İnan gülgen
 00172;5423152889;4609020113022097100;a0526fd3507c6751;İsmail Bayraktar 
