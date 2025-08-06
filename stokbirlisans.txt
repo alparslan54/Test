@@ -316,7 +316,7 @@
 00062;5352372943;4920002411959138100;264e8adad6bc6f23;Mehmet Uzun
 
 00061;MTMxMTcyNDA3YzBjOGU5YmIwZWM1NmVhU00tTTEzNUZtMTMzNDE3MTUyNDA3MTUwMDAxNjg5MzUz+NDY1MDE5+;Erkan Korkmaz lisans2
-00061;NDhiZTVlYzdiOGIyZjBhY2E1MGYzNmYzU00tRzk5MEVyOXMzNDE3MjIzMTQxOTcwMDAxNjQyMTc1+NDc4NzE5+;erkan korkmaz LİSANS-1
+00061;nisangida-r9s-samsung-SM-G990E-exynos2100-dbfc48ce-1642175478719;erkan korkmaz LİSANS-1
 
 00059;murattoptan-62724612-V2352-V2352-1731075217370;Murat Çolak
 00056;usludagitim-begonia-Redmi-Redmi Note 8 Pro-begonia-ad1d10d4-1685624736829;bekiruslu1979.0618@gmail.com;Bekir Uslu
