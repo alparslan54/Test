@@ -1,3 +1,4 @@
+00348;kenanates-c1s-samsung-SM-N980F-exynos990-2bf43f8e-1755270223056;Kenan Ateş 
 00347;-X5-OMIX-X5-X5-a5dd528a-1754988765282; Mehmet 
 00346;kormazgida-r11s-samsung-SM-S711B-s5e9925-ed042300-1753695309030;Hüseyin
 00345;bymistik-a25x-samsung-SM-A256E-s5e8825-b322ba9c-1753537636584;Caner
