@@ -235,7 +235,7 @@
 00146;ZTA4NGUxYzZlYzM4YmExMGJkYzEyODY4ODQ5MVhfVFJBcXVhbWFuXzEwX1NtYXJ0X1dJRkkzMDE2+ODI2NjkzODcwMDAxNjU5MTc3MDYzOTEx+;Orhan Öztekin-1.Lisans
 
 00145;5378123591;4537707733618594000;fc850373e3dd8303;Devrim Çetin Tosun
-00144;nurettinsakizseker-pa3q-samsung-SM-S938B-sun-1c3b05e9-1756217715319;Nurettin Yeşiloğlu 
+00144;nurettinsakizseker-pa3q-samsung-SM-S938B-sun-f4c8d2b2-1756217715319;Nurettin Yeşiloğlu 
 00143;
 00142;5365853315;4992092331198094000;88112029dbea3983;Adem Yıldız
 00141;cenk-vili-Xiaomi-2107113SR-vili-587ec072-1667592217414;cenkyorulmaz1@gmail.com;Cenk Yorulmaz
