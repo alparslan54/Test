@@ -53,6 +53,7 @@ Uygulamamızın özellikleri için gereklidir ve tamamen sizin kontrolünüzde �
     * Kullanıcı isterse iletişime geçerek bu adımı tamamlar. Kullanıcı eposta veya diğer iletişim bilgisi firmada olmadığından StokOn tarafından hiçbir şekilde iletişim kurulmaz.
     * Uygulamada oturum açmış fakat ücretlendirme yapmamış kullanıcılar için gerekli bilgilendirme uygulama içerisinde yapılır.
 
+9. Üçüncü taraf SDK Kullanımı. uygulama fonksiyonları için gerektiğinde 3. taraf SDK kullanılmaktadır. SDK ların yapısı gereği kullanıcı verileri ve diğer bilgiler SDK sahibi tarafından toplanabilir ve işlenebilir.
 
 Son Güncelleme Tarihi: 03 Temmuz 2025
 
