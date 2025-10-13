@@ -55,7 +55,7 @@ Uygulamamızın özellikleri için gereklidir ve tamamen sizin kontrolünüzde �
 
 9. Üçüncü taraf SDK Kullanımı. uygulama fonksiyonları için gerektiğinde 3. taraf SDK kullanılmaktadır. SDK ların yapısı gereği kullanıcı verileri ve diğer bilgiler SDK sahibi tarafından toplanabilir ve işlenebilir.
 
-Son Güncelleme Tarihi: 03 Temmuz 2025
+Son Güncelleme Tarihi: 13 Ekim 2025
 
 
 
