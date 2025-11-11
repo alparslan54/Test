@@ -6,6 +6,7 @@ import customtkinter as ctk
 from customtkinter import CTkImage
 import websockets
 from PIL import Image, ImageTk
+from aiortc.sdp import candidate_from_sdp
 import cv2
 
 from av import VideoFrame
@@ -18,6 +19,9 @@ import sys
 import ssl
 import traceback
 import tkinter
+
+from jinja2.ext import with_
+
 from crypto_e2ee import pubkey_from_bytes, derive_aes_key
 
 import winsound
@@ -32,18 +36,49 @@ import asyncio   #
 import sounddevice as sd  #
 import numpy as np
 
+import sys
+import os
+
+def resource_path(relative_path):
+    """ .exe olarak çalışırken kaynak dosyalarına doğru yolu alır """
+    try:
+        # PyInstaller geçici bir klasör oluşturur ve yolu _MEIPASS içinde saklar
+        base_path = sys._MEIPASS
+
+        # ---- YENİ SATIR ----
+        # PyInstaller'ın 'data' dosyalarını (ffmpeg vb.) koyduğu
+        # _internal klasörünü de yola ekle.
+        base_path = os.path.join(base_path, ".")
+        # ---- YENİ SATIR SONU ----
+
+    except Exception:
+        # .exe olarak çalışmıyorsa (normal .py ise)
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+if sys.stdin is None:
+    sys.stdin = io.StringIO()
+if sys.stdout is None:
+    sys.stdout = io.StringIO()
+if sys.stderr is None:
+    sys.stderr = io.StringIO()
+
 # --- new block--- to show pydub ffmpeg's place
 try:
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    ffmpeg_path = os.path.join(script_dir, "ffmpeg.exe")
-    ffprobe_path = os.path.join(script_dir, "ffprobe.exe")
+
+    ffmpeg_path = resource_path("ffmpeg.exe")
+    ffprobe_path = resource_path("ffprobe.exe")
 
     # hardcore these paths to pydub lib
     pydub.AudioSegment.converter = ffmpeg_path
     pydub.AudioSegment.ffprobe = ffprobe_path
+
     print("DEBUG: ffmpeg motoru pydub'a başarıyla bağlandı.")
 except Exception as e:
     print(f"UYARI: ffmpeg/ffprobe yüklenemedi. Ses sıkıştırma çalışmayabilir. Hata: {e}")
+
+
 
 
 
@@ -240,6 +275,7 @@ class WebRTCManager:
     """
 
     def __init__(self, master_app, target_username):
+        self.camera_track = None
         self.master_app = master_app
         self.target_username = target_username
 
@@ -248,6 +284,7 @@ class WebRTCManager:
             iceServers=[
                 RTCIceServer(urls="stun:stun.l.google.com:19302"),
                 RTCIceServer(urls="turn:your.turn.server:3478", username="user", credential="pass")
+
             ]
         )
         self.pc = RTCPeerConnection(configuration=config)
@@ -312,10 +349,6 @@ class WebRTCManager:
 
     async def add_camera_track(self, use_dummy=False):
         if not hasattr(self, "camera_track") or self.camera_track is None:
-            if use_dummy:
-                self.camera_track = DummyVideoTrack(self.loop, color=(255, 0, 0))
-                print(f"DEBUG ({self.target_username}): Dummy kamera track eklendi.")
-            else:
                 self.camera_track = CameraVideoTrack(self.loop)
                 print(f"DEBUG ({self.target_username}): Gerçek kamera track eklendi.")
                 self.pc.addTrack(self.camera_track)
@@ -335,7 +368,7 @@ class WebRTCManager:
             senders = [s for s in self.pc.getSenders() if s.track == self.camera_track]
             for sender in senders:
                 try:
-                    await self.pc.removeTrack(sender) # <-- DÜZELTME
+                    await sender.replaceTrack(None) # <-- DÜZELTME
                 except Exception as e:
                     print(f"HATA (removeTrack): {e}")
             self.camera_track = None
@@ -366,10 +399,21 @@ class WebRTCManager:
             print(f"Hoparlör akış hatası: {e}")
 
 
+
     async def add_mic_track(self):
         if not self.mic_track:
             print("HATA: Mikrofon yok.")
             return
+
+        # --- YENİ KORUMA ---
+        # Bu track'i gönderen bir sender (verici) zaten var mı?
+        senders = [s for s in self.pc.getSenders() if s.track == self.mic_track]
+        if senders:
+            print(f"DEBUG ({self.target_username}): Mikrofon track ZATEN eklenmiş, 'start' kontrol ediliyor...")
+            await self.mic_track.start()  # Sadece 'start' olduğundan emin ol
+            return
+        # --- KORUMA SONU ---
+
         print(f"DEBUG ({self.target_username}): Mikrofon ekleniyor...")
         self.pc.addTrack(self.mic_track)
         await self.mic_track.start()
@@ -381,19 +425,24 @@ class WebRTCManager:
     async def create_offer(self):
         await self.add_mic_track()
 
+
+
         offer = await self.pc.createOffer()
         await self.pc.setLocalDescription(offer)
         self.send_signal("CALL_OFFER", offer.sdp)
 
+
     async def handle_offer(self, offer_sdp):
-        offer_desc = RTCSessionDescription(sdp=offer_sdp, type="offer")
-        await self.pc.setRemoteDescription(offer_desc)
-        await self.add_mic_track()
-        # await self.add_camera_track() # <-- DÜZELTME: Bu satırı silin veya yorum satırı yapın
-        answer = await self.pc.createAnswer()
-        # ...
-        await self.pc.setLocalDescription(answer)
-        self.send_signal("CALL_ANSWER", answer.sdp)
+            offer_desc = RTCSessionDescription(sdp=offer_sdp, type="offer")
+            await self.pc.setRemoteDescription(offer_desc)
+
+            await self.add_mic_track()
+            await self.add_camera_track()
+
+            answer = await self.pc.createAnswer()
+            # ...
+            await self.pc.setLocalDescription(answer)
+            self.send_signal("CALL_ANSWER", answer.sdp)
 
     async def handle_answer(self, answer_sdp):
         answer_desc = RTCSessionDescription(sdp=answer_sdp, type="answer")
@@ -415,6 +464,10 @@ class WebRTCManager:
             self.speaker_stream.stop()
             self.speaker_stream.close()
             self.speaker_stream = None
+        if self.camera_track:
+            self.camera_track.stop()
+            self.camera_track = None
+
         if self.mic_track:
             self.mic_track.stop()
             self.mic_track = None
@@ -581,15 +634,26 @@ class PrivateChatWindow(ctk.CTkToplevel):
             btn_reject.pack(side="left", padx=3)
             self._video_dialog_buttons = container
 
+
+
     def accept_video(self):
         if self.video_state != "pending_incoming":
             return
+
+        # 1. Karşı tarafa kabul ettiğimizi bildiriyoruz
         self.master_app.send_call_signal("VIDEO_ACCEPT", self.target_username)
-        # Biz de kamerayı ekliyoruz (isteğe bağlı), sonra karşı tarafın offer’ını bekleyebiliriz.
-        self.master_app.run_coroutine_threadsafe(self.rtc_manager.add_camera_track())
-        # DİKKAT: Burada create_offer çağırmak yerine, karşı tarafın da eklemesine izin verip
-        # ya biz ya karşı taraf bir offer oluşturmalı. Simetri için biz de yapabiliriz:
+
+        # 2. Biz (kabul eden taraf) kendi kameramızı ekliyoruz
+        self.master_app.run_coroutine_threadsafe(self.rtc_manager.add_camera_track())  #
+
+        # --- DÜZELTME BURADA ---
+        # 3. Müzakereyi BİZ (kabul eden taraf) başlatıyoruz.
+        # Kodunuzdaki [cite: 62] ve [cite: 65]'teki mantığın aksine,
+        # bu satırı EKLEYEREK yeni 'Offer'ı biz gönderiyoruz:
+        print(f"DEBUG ({self.target_username}): Video kabul edildi, yeniden müzakere (renegotiate) başlatılıyor...")
         self.master_app.run_coroutine_threadsafe(self.rtc_manager.renegotiate())
+        # --- DÜZELTME SONU ---
+
         self.video_enabled = True
         self.video_state = "active"
         self.call_status_label.configure(text="📷 Görüntülü arama başladı")
@@ -727,6 +791,8 @@ class PrivateChatWindow(ctk.CTkToplevel):
             self.chat_box.see("end")  # En alta kaydır
         except Exception as e:
             print(f"Özel pencereye mesaj eklenemedi: {e}")
+
+
 
     def on_closing(self):
         """
@@ -868,10 +934,11 @@ class ChatApp(ctk.CTk):
     def load_icons(self):
         """Uygulama için gerekli ikonları yükler."""
         try:
-            self.user_icon = ctk.CTkImage(Image.open("assets/user_icon.png"), size=(24, 24))
-            self.lock_icon = ctk.CTkImage(Image.open("assets/lock_icon.png"), size=(24, 24))
-            self.send_icon = ctk.CTkImage(Image.open("assets/send_icon.png"), size=(24, 24))  # <-- YENİ SATIR
-            self.server_icon = ctk.CTkImage(Image.open("assets/server_icon.png"), size=(24, 24))
+
+            self.user_icon = ctk.CTkImage(Image.open(resource_path("assets/user_icon.png")), size=(24, 24))
+            self.lock_icon = ctk.CTkImage(Image.open(resource_path("assets/lock_icon.png")), size=(24, 24))
+            self.send_icon = ctk.CTkImage(Image.open(resource_path("assets/send_icon.png")), size=(24, 24))
+            self.server_icon = ctk.CTkImage(Image.open(resource_path("assets/server_icon.png")), size=(24, 24))
         except FileNotFoundError as e:
             print(f"Hata: İkon dosyaları 'assets' klasöründe bulunamadı: {e}")
             print("İkonsuz devam ediliyor...")
@@ -896,11 +963,11 @@ class ChatApp(ctk.CTk):
 
     def run_coroutine_threadsafe(self, coro):
         """Ana thread'den (GUI) asyncio thread'ine güvenle coroutine göndermeyi sağlar."""
-        asyncio.run_coroutine_threadsafe(coro, self.asyncio_loop)
+        return asyncio.run_coroutine_threadsafe(coro, self.asyncio_loop)
 
-    def schedule_gui_update(self, func, *args):
+    def schedule_gui_update(self, func, *args, **kwargs):
         """Asyncio thread'inden ana GUI thread'ine güvenle fonksiyon çağırmayı sağlar."""
-        self.after(0, func, *args)
+        self.after(0, func, *args,**kwargs)
 
     # --- Arayüz Fonksiyonları (Çoğunlukla Aynı) ---
 
@@ -1285,13 +1352,26 @@ class ChatApp(ctk.CTk):
                     self.run_coroutine_threadsafe(rtc_manager.handle_answer(sdp_data))
 
 
+
+
             elif command == "CALL_CANDIDATE":
+
                 sender = payload.get("from")
-                candidate_sdp = payload.get("candidate")
-                if sender in self.private_chat_windows:
+
+                # HATA 1 DÜZELTİLDİ: 'candidate' -> 'sdp'
+
+                candidate_sdp = payload.get("sdp")
+
+                if sender in self.private_chat_windows and candidate_sdp:
                     rtc_manager = self.private_chat_windows[sender].rtc_manager
-                    # Aiortc candidate ekleme
-                    add_ice_candidate_sdp(candidate_sdp)
+
+                    # HATA 2 DÜZELTİLDİ: Çağrı async ve rtc_manager üzerinden olmalı
+
+                    self.run_coroutine_threadsafe(
+
+                        rtc_manager.add_ice_candidate_sdp(candidate_sdp)
+
+                    )
 
             elif command == "DM_HISTORY":
                 target = payload.get("target")
@@ -1558,6 +1638,8 @@ class ChatApp(ctk.CTk):
             self.main_chat_frame = ctk.CTkFrame(self)
             self.main_chat_frame.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
 
+
+            #kendi kameram
             # --- main_chat_frame Izgarasını Yapılandır ---
             # 3 satır: 0 (sohbet/liste), 1 (yazıyor...), 2 (giriş)
             self.main_chat_frame.grid_rowconfigure(0, weight=1)  # Satır 0 (sohbet kutuları) genişlesin
@@ -1590,7 +1672,14 @@ class ChatApp(ctk.CTk):
             self.record_button = ctk.CTkButton(self.main_chat_frame, text="🎤", width=40,
                                                command=self.toggle_voice_message)  # <-- YENİ
             self.record_button.grid(row=2, column=2, sticky="nsew", padx=(5, 0))
+            #kendi kameram
+            self.record_button.grid(row=2, column = 2, sticky = "nsew", padx = (5, 0))
 
+            # --- YENİ EKLENTİ: Kamera Test Butonu ---
+            self.camera_test_button = ctk.CTkButton(self.main_chat_frame, text="Kamera Test", width=80,
+                                                    command=self.start_camera_preview_window)
+            self.camera_test_button.grid(row=2, column=3, sticky="nsew", padx=(5, 0))
+            # --- YENİ EKLENTİ SONU ---
             # Gönder Butonu (İkonlu) (row=2'ye alındı)
             self.send_button = ctk.CTkButton(self.main_chat_frame,
                                              image=self.send_icon, text="", width=40,
@@ -2158,7 +2247,8 @@ class ChatApp(ctk.CTk):
     def _actually_play_incoming(self):
             """Zamanlayıcı bittiğinde *gelen* sesi çalar."""
             try:
-                winsound.PlaySound("asssets/message.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
+
+                winsound.PlaySound(resource_path("assets/message.wav"), winsound.SND_FILENAME | winsound.SND_ASYNC)
             except Exception as e:
                 pass
             finally:
@@ -2174,12 +2264,143 @@ class ChatApp(ctk.CTk):
         """Zamanlayıcı bittiğinde *giden* sesi çalar."""
         try:
             # Giden ses dosyasının 'assets' klasöründe olduğunu varsayıyorum
-            winsound.PlaySound("assets/message.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
+            winsound.PlaySound(resource_path("assets/message.wav"), winsound.SND_FILENAME | winsound.SND_ASYNC)
         except Exception as e:
             print(f"Giden ses dosyası ('assets/message.wav') bulunamadı: {e}")
             pass
         finally:
             self._sound_cooldown_timer_out = None
+
+
+
+    # 'on_closing' fonksiyonunun HEMEN ÜZERİNE (sınıfın bir metodu olarak) ekleyin:
+
+    def start_camera_preview_window(self):
+        """Kamera testi için yeni bir pencere açar."""
+
+        # Zaten bir test penceresi açık mı?
+        if hasattr(self, "camera_preview_window") and self.camera_preview_window.winfo_exists():
+            self.camera_preview_window.lift()  # Pencereyi öne getir
+            return
+
+        # Yeni Toplevel penceresi oluştur
+        self.camera_preview_window = ctk.CTkToplevel(self)
+        self.camera_preview_window.title("Kamera Testi (Lokal Önizleme)")
+        self.camera_preview_window.geometry("640x480")
+
+        # Video görüntüsünün gösterileceği etiketi oluştur
+        self.camera_preview_label = ctk.CTkLabel(self.camera_preview_window, text="Kamera bağlanıyor...")
+        self.camera_preview_label.pack(fill="both", expand=True)
+
+        # Kamera akışını (coroutine) güvenli bir şekilde başlat
+        self.camera_preview_task = self.run_coroutine_threadsafe(
+            self.run_local_camera_feed(self.camera_preview_label)
+        )
+
+        # Pencere kapatıldığında coroutine'i durdurmak için protokol ata
+        self.camera_preview_window.protocol(
+            "WM_DELETE_WINDOW", self.stop_camera_preview_window
+        )
+
+    def stop_camera_preview_window(self):
+        """Kamera test penceresini ve kamera akışını güvenle durdurur."""
+
+        # 1. Arka planda çalışan kamera coroutine'ini iptal et
+        if hasattr(self, "camera_preview_task"):
+            try:
+                # 'run_coroutine_threadsafe' bir 'future' nesnesi döndürür
+                # Bu 'future' üzerinden 'cancel()' çağrılabilir
+                self.camera_preview_task.cancel()
+            except Exception as e:
+                print(f"Kamera görevini iptal etme hatası: {e}")
+
+        # 2. Pencereyi yok et
+        if hasattr(self, "camera_preview_window") and self.camera_preview_window.winfo_exists():
+            self.camera_preview_window.destroy()
+
+        # 3. Referansları temizle
+        if hasattr(self, "camera_preview_window"):
+            del self.camera_preview_window
+        if hasattr(self, "camera_preview_label"):
+            del self.camera_preview_label
+        if hasattr(self, "camera_preview_task"):
+            del self.camera_preview_task
+
+    async def run_local_camera_feed(self, video_label):
+        """Lokal kamerayı açar ve sağlanan CTkLabel'a yansıtır."""
+        cap = None
+        try:
+            cap = cv2.VideoCapture(0)  # 0, varsayılan kameradır
+            if not cap.isOpened():
+                print("HATA: Kamera (index 0) açılamadı!")
+                self.schedule_gui_update(video_label.configure, text="Hata: Kamera açılamadı.")
+                return
+
+            while True:
+                # --- YENİ GÜVENLİK KONTROLÜ ---
+                # Döngünün başında, 'video_label' hala var mı diye kontrol et.
+                # Eğer pencere kapatıldıysa, bu 'False' döner ve döngü temizce durur.
+                try:
+                    if not video_label.winfo_exists():
+                        break
+                except Exception:
+                    # (video_label'ın kendisi None olduysa vb. nadir durumlar için)
+                    break
+                # --- KONTROL SONU ---
+                ret, frame = cap.read()
+                if not ret:
+                    break
+
+                # Görüntüyü GUI'de göstermek için hazırla (OpenCV BGR -> RGB)
+                img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                pil_img = Image.fromarray(img)
+
+                # Pencere boyutu değişebileceği için label'ın o anki boyutunu al
+                w = video_label.winfo_width()
+                h = video_label.winfo_height()
+
+                # Sadece geçerli boyutlar varsa (pencere küçültülmemişse)
+                if w > 10 and h > 10:
+                    # Görüntüyü label'a sığacak şekilde yeniden boyutlandır (oranı koru)
+                    pil_img.thumbnail((w, h), Image.LANCZOS)
+                    tk_img = CTkImage(light_image=pil_img, size=pil_img.size)
+
+                    # GUI'yi ana thread'de güncelle (schedule_gui_update ile)
+                    def update_gui_label(img_to_set=tk_img):
+                        try:
+                            # 'try-except' bloğu, pencere aniden kapatılırsa oluşacak hataları yakalar
+                            video_label.configure(image=img_to_set, text="")
+                            video_label.image = img_to_set  # Referansı sakla (çöp toplayıcı silmesin)
+                        except Exception:
+                            pass
+
+                    self.schedule_gui_update(update_gui_label)
+
+                await asyncio.sleep(0.03)  # ~30 FPS
+
+        except asyncio.CancelledError:
+            print("Kamera önizlemesi (lokal) durduruldu.")
+        except Exception as e:
+            print(f"Kamera önizleme hatası: {e}")
+            traceback.print_exc(file=sys.stderr)
+        finally:
+            # Temizlik: Kamera kaynağını serbest bırak
+            if cap:
+                cap.release()
+
+            # Label'ı temizle
+            def clear_gui_label():
+                try:
+                    video_label.configure(image=None, text="Kamera Kapatıldı.")
+                    video_label.image = None
+                except Exception:
+                    pass
+
+            self.schedule_gui_update(clear_gui_label)
+
+
+
+
 
         # 'on_closing' fonksiyonunun HEMEN ÜZERİNE (sınıfın bir metodu olarak) ekleyin:
     async def shutdown_async_tasks(self):
