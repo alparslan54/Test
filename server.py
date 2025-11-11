@@ -287,6 +287,31 @@ async def handle_dm(sender_username, target_username, message_text):
 AUDIO_SAVE_DIR = "audio_records"
 os.makedirs(AUDIO_SAVE_DIR, exist_ok=True)
 
+async def relay_signal(command, payload, current_username, websocket):
+    target_username = payload.get("target")
+    if not target_username:
+        print(f"DEBUG ({current_username}): {command} atlandı (target eksik).")
+        return
+
+    target_socket = next((ws for ws, d in authenticated_clients.items()
+                          if d.get("username") == target_username), None)
+
+    if not target_socket:
+        await websocket.send(json.dumps({
+            "command": "SYS_MSG_ERR",
+            "payload": f"{target_username} çevrimdışı."
+        }))
+        return
+
+    relay_payload = dict(payload)
+    relay_payload["from"] = current_username
+
+    await target_socket.send(json.dumps({
+        "command": command,
+        "payload": relay_payload
+    }))
+    print(f"DEBUG ({current_username}): {command} -> {target_username}")
+
 async def broadcast_audio(audio_chunk, sender_username=None, exclude_websocket=None):
     """
     İkili (binary) ses parçasını herkese yayınlar ve kaydeder.
@@ -648,46 +673,25 @@ async def handler(websocket):
                     await websocket.send(
                         json.dumps({"command": "SYS_MSG_ERR", "payload": f"Ses dosyası alınamadı: {e}"}))
             # --- GÖRÜNTÜLÜ ARAMA / WEBRTC SİNYAL YÖNLENDİRME (TEMİZ BLOK) ---
-            elif command in (
-                    "CALL_REQUEST", "CALL_ACCEPT", "CALL_REJECT",
-                    "CALL_OFFER", "CALL_ANSWER", "CALL_CANDIDATE",
-                    "CALL_ENDED", "VIDEO_REQUEST", "VIDEO_ACCEPT",
-                    "VIDEO_REJECT", "VIDEO_ENDED"
-            ):
-                try:
-                    target_username = payload.get("target")
-                    if not target_username:
-                        print(f"DEBUG ({current_username}): Sinyal atlandı (target eksik).")
-                        continue
+            elif command in ("CALL_REQUEST", "CALL_ACCEPT", "CALL_REJECT",
+                             "CALL_ENDED", "VIDEO_REQUEST", "VIDEO_ACCEPT",
+                             "VIDEO_REJECT", "VIDEO_ENDED"):
+                await relay_signal(command, payload, current_username, websocket)
 
-                    # Hedef websocket'i bul
-                    target_socket = next((ws for ws, d in authenticated_clients.items()
-                                          if d.get("username") == target_username), None)
-
-                    if not target_socket:
-                        # Karşı taraf çevrimdışıysa
-                        await websocket.send(json.dumps({
-                            "command": "SYS_MSG_ERR",
-                            "payload": f"{target_username} şu anda çevrimdışı."
-                        }))
-                        print(f"DEBUG ({current_username}): {command} -> {target_username} başarısız (offline).")
-                        continue
-
-                    # Relay edilecek payload'u hazırla
-                    relay_payload = payload.copy()
+            elif command in ("CALL_OFFER", "CALL_ANSWER", "CALL_CANDIDATE"):
+                target_username = payload.get("target")
+                if not target_username:
+                    print(f"DEBUG ({current_username}): {command} atlandı (target eksik).")
+                    continue
+                target_socket = next((ws for ws, d in authenticated_clients.items()
+                                      if d.get("username") == target_username), None)
+                if target_socket:
+                    relay_payload = dict(payload)
                     relay_payload["from"] = current_username
-
-                    # Karşı tarafa gönder
                     await target_socket.send(json.dumps({
                         "command": command,
                         "payload": relay_payload
                     }))
-
-                    print(
-                        f"DEBUG ({current_username}): {command} sinyali {target_username} kullanıcısına yönlendirildi.")
-
-                except Exception as e:
-                    print(f"DEBUG ({current_username}): WebRTC relay hatası: {e}", file=sys.stderr)
 
 
             elif command == "KEY_INIT":
@@ -702,7 +706,7 @@ async def handler(websocket):
 
             elif command == "KEY_REPLY":
                 target = payload.get("target")
-                pub = payload.get("pub");
+                pub = payload.get("pub")
                 salt = payload.get("salt")
                 target_socket = next((s for s, d in authenticated_clients.items() if d["username"] == target), None)
                 if target_socket:
