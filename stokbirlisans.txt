@@ -250,8 +250,9 @@
 00144;nurettinsakizseker-pa3q-samsung-SM-S938B-sun-f4c8d2b2-1756217715319;Nurettin Yeşiloğlu 
 00143;
 00142;5365853315;4992092331198094000;88112029dbea3983;Adem Yıldız
+
 00141;cenk-vili-Xiaomi-2107113SR-vili-ad065ca3-1667592217414;Cenk Yorulmaz
-00140;N2UxYzAzMGI5MTQ4MDE3YjgyNzQ5MTU2VEIzMjhGVVRCMzI4RlUzMTE3Mzg5ODE0MjUwMDAxNzIw+ODg0NTMzNDg5+;İsmail Kara
+
 
 00134;sidarkarakoctoptanambalaj-741c0e92-SM-S921B-e1s-1717231926531;Sidar Karakoç
 00133;sastun-924303d0-2407FPN8EG-rothko-1734812940488;Rıza Arslan
@@ -310,7 +311,7 @@
 00094;27 Kasım 2021 kayınpederi bursa Gürbüz Karalar
 00094;NDRiZjc5M2RmZGI1Zjg5MTA3YzM5NzY3MjMxMURSSzQ4R2R1Y2hhbXAzNTE3Mzk0NTQ0MDAwMDAx+NzM2MTA4MDA5NDY0+;8 Kasım 2021 Gürbüz Karalar kendisi
 
-00093;aybayspot-OP4F2F-OPPO-CPH2239-oppo6765-b8518833-1646380171092;fedayiaybay@gmail.com;Fedai
+
 00092;ertugrul5309519691-begonia-Redmi-Redmi Note 8 Pro-begonia-f8792e91-1752092642837;Ertuğrul kelemci
 00091;ZDEzNzBmODMxMDBlMjJmZjNmYjQ0ZGFhUmVkbWkgTm90ZSA4IFByb2JlZ29uaWEzMDE2NTM0ODMw+ODAwMDAxNzA5MjMxMzI5OTMw+; Erhan Okur
 00090;sengida-m20lte-samsung-SM-M205F-exynos7904-a846deeb-1728057858432;Engin gülmez
