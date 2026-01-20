@@ -158,7 +158,7 @@
 00219;5555555555;4280229093809675300;2c13e0fbb1e50e20;Sami Kalkan 
 00218;hasel-emerald-Redmi-23117RA68G-emerald-90b3f8be-1750845173980; Mehmet Aklanoğlu
 
-00217;atakanspot-9aa3c5f8-SM-A055F-a05m-1755244979805; Atakan lisans 2
+
 00217;atakanspot05319501790-78aabb23-SM-A137F-a13ve-1697118134513; Atakan lisans 1
 
 00216;safirmetal-62dffb80-SM-A245F-a24-1726920608373;Yusuf Ulutaş
