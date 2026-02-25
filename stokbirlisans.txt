@@ -26,7 +26,7 @@
 00336;beykentgida-ruby-Redmi-22101316C-ruby-5baa41ed-1749837755320;Mansur Ezer
 00335;copurogluticaret-emerald-Redmi-23117RA68G-emerald-083276f7-1749824323710;Furkan
 00334;tadimis-1--r9s-samsung-SM-G990E-exynos2100-81c10c64-1749656874433;ilaslan3869@gmail.com;Serkan
-00333;tadimisunlumamuller-joyeuse-Redmi-Redmi Note 9 Pro-joyeuse-dc7b217d-1749655097115;ilaslan3869@gmail.com;Mehmet
+
 00332;ceysgida-m34x-samsung-SM-M346B2-s5e8825-6f897bfa-1749141184301;koseercan44@gmail.com;Ercan kose
 00331;3atoptangida-HWMAR-HUAWEI-MAR-LX1M-MAR-e939fb53-1749121314855;ercanbykl83@gmail.com;Ercan Büyükkal
 00330;ervagida-TECNO-LG7n-TECNO-TECNOLG7n-TECNO-LG7n-85987697-1757152686954;Berşan Ecer den devir İbrahim 
