@@ -319,8 +319,7 @@
 
 00061;MTMxMTcyNDA3YzBjOGU5YmIwZWM1NmVhU00tTTEzNUZtMTMzNDE3MTUyNDA3MTUwMDAxNjg5MzUz+NDY1MDE5+;Erkan Korkmaz lisans2
 00061;nisangida-r9s-samsung-SM-G990E-exynos2100-dbfc48ce-1642175478719;erkan korkmaz LİSANS-1
-
-00059;murattoptan-62724612-V2352-V2352-1731075217370;Murat Çolak
+
 00056;usludagitim-begonia-Redmi-Redmi Note 8 Pro-begonia-ad1d10d4-1685624736829;bekiruslu1979.0618@gmail.com;Bekir Uslu
 00055;patanticaret-a25x-samsung-SM-A256E-s5e8825-a61d3379-1720899233212;muhammetptn@gmail.com;Muhammed Patan
 00054;nasuhkorkmaz-9b024839-23053RN02A-fire-1707077464420;Nasuh Korkmaz
